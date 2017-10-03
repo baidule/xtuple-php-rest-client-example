@@ -87,8 +87,23 @@ if (!isset($_GET['method']) && !isset($_GET['id'])) {
   $added =  false;
   $output = '';
 
+  // A free text search query using `q`. Will search any `text` field in the
+  // Contact object for a match.
+  $optParams = array("q" => "Joe");
+
+  // A specific query on the `firstName` column to `EQUALS` a value.
+  $optParams = array(
+    "query" => array(
+      "firstName" => array(
+        "EQUALS" => "Joe"
+      )
+    )
+  );
+
+  $optParams = array();
+
   // Make the GET request.
-  $result = $service->Contact->list();
+  $result = $service->Contact->list($optParams);
   foreach ($result['data'] as $value) {
     $output .= "<tr>
             <td>";
